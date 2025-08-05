@@ -1,6 +1,7 @@
 export const initialStore=()=>{
   return{
     message: null,
+    contacts:[],
     todos: [
       {
         id: 1,
@@ -12,12 +13,22 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
+    ],
+    
   }
 }
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
+    case "getContact":
+    const {getContactList} = action.payload
+    
+    return{
+      ...store,
+      contacts:getContactList
+    }
+
+
     case 'add_task':
 
       const { id,  color } = action.payload

@@ -8,26 +8,28 @@ export const Home = () => {
 
 	const { store, dispatch } = useGlobalReducer();
 
-	const [contacts, setContacts] = useState([])
 
+
+	const callContact = async () => {
+		const url = "https://playground.4geeks.com/contact/agendas/ricardo"
+		try {
+			const resp = await fetch(url)
+			if (!resp.ok) {
+				throw new Error(`Status ${resp.status}`);
+			}
+			const data = await resp.json();
+			dispatch({
+				type: "getContact",
+				payload: { getContactList: data.contacts }
+
+			})
+
+		} catch (error) {
+			console.error(error.message)
+		}
+	}
 
 	useEffect(() => {
-		const url = "https://playground.4geeks.com/contact/agendas/ricardo"
-
-		const callContact = async () => {
-			try {
-				const resp = await fetch(url)
-				if (!resp.ok) {
-					throw new Error(`Status ${resp.status}`);
-				}
-				const data = await resp.json();
-				console.log(data)
-				setContacts(data.contacts)
-
-			} catch (error) {
-				console.error(error.message)
-			}
-		}
 
 		callContact();
 	}, [])
@@ -43,7 +45,7 @@ export const Home = () => {
 			</div>
 			<div className="content mt-5" >
 				{
-					contacts.map((contact) => {
+					store.contacts.map((contact) => {
 						return <div className="d-flex justify-content-center" key={contact.id} >
 							<Contact contactinfo={contact} />
 						</div>
