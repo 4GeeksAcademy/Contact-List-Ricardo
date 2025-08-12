@@ -1,5 +1,6 @@
 import React from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { Link } from "react-router-dom";
 
 
 export const Contact = ({ contactinfo }) => {
@@ -91,7 +92,10 @@ export const Contact = ({ contactinfo }) => {
 					</div>
 				</div>
 				<div className="col-md-2">
-					<button type="button" class="btn "><i class="fa-solid fa-pencil"></i></button>
+					<Link to={`/edit/${id}`} >
+						<button type="button" class="btn "><i class="fa-solid fa-pencil"></i></button>
+					</Link>
+					
 					<button type="button" onClick={() => deleteUser(id)} class="btn "><i class="fa-solid fa-trash"></i></button>
 				</div>
 			</div>
